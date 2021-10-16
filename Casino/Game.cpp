@@ -401,34 +401,6 @@ void drawmethod(int position, int number)
 
 void drawCard(int number, int cPos)
 {
-	//10x8
-		/*
-╔════╗╔╗╔══╗╔══╗──╔══╗
-╚═╗╔═╝║║║╔═╝║╔╗║──║╔╗║
-──║║──║╚╝║──║╚╝╚╗─║║║║
-──║║──║╔╗║──║╔═╗║─║║║║
-──║║──║║║╚═╗║╚═╝║╔╝╚╝╚╗
-──╚╝──╚╝╚══╝╚═══╝╚════╝
-─╔╦══╗╔══╗╔══╗╔══╗
-╔╝║╔╗║║╔╗║║╔╗║╚═╗║
-╚╗║║║║║╚╝║║╚╝║──║║
-─║║║║║╚═╗║║╔╗║──║║
-─║║╚╝║╔═╝║║╚╝║──║║
-─╚╩══╝╚══╝╚══╝──╚╝
-╔══╗╔══╗╔╗╔╗╔══╗╔══╗
-║╔═╝║╔═╝║║║║╚═╗║╚═╗║
-║╚═╗║╚═╗║╚╝║╔═╝║╔═╝║
-║╔╗║╚═╗║╚═╗║╚═╗║║╔═╝
-║╚╝║╔═╝║──║║╔═╝║║╚═╗
-╚══╝╚══╝──╚╝╚══╝╚══╝
-─╔╗
-╔╝║
-╚╗║
-─║║
-─║║
-─╚╝
-
-	*/
 	switch (number)
 	{
 	case 2:
@@ -552,127 +524,11 @@ void drawCard(int number, int cPos)
 		break;
 	}
 	return;
-	//2
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║2         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ╚═╗║   ║";
-	setcur(cPos, 8); std::cout <<  "║   ╔═╝║   ║";
-	setcur(cPos, 9); std::cout <<  "║   ║╔═╝   ║";
-	setcur(cPos, 10); std::cout << "║   ║╚═╗   ║";
-	setcur(cPos, 11); std::cout << "║   ╚══╝   ║";
-	setcur(cPos, 12); std::cout << "║         2║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//3
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║3         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ╚═╗║   ║";
-	setcur(cPos, 8); std::cout <<  "║   ╔═╝║   ║";
-	setcur(cPos, 9); std::cout <<  "║   ╚═╗║   ║";
-	setcur(cPos, 10); std::cout << "║   ╔═╝║   ║";
-	setcur(cPos, 11); std::cout << "║   ╚══╝   ║";
-	setcur(cPos, 12); std::cout << "║         3║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//4
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║4         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔╗╔╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ║║║║   ║";
-	setcur(cPos, 8); std::cout <<  "║   ║╚╝║   ║";
-	setcur(cPos, 9); std::cout <<  "║   ╚═╗║   ║";
-	setcur(cPos, 10); std::cout << "║     ║║   ║";
-	setcur(cPos, 11); std::cout << "║     ╚╝   ║";
-	setcur(cPos, 12); std::cout << "║         4║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//5
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║5         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ║╔═╝   ║";
-	setcur(cPos, 8); std::cout <<  "║   ║╚═╗   ║";
-	setcur(cPos, 9); std::cout <<  "║   ╚═╗║   ║";
-	setcur(cPos, 10); std::cout << "║   ╔═╝║   ║";
-	setcur(cPos, 11); std::cout << "║   ╚══╝   ║";
-	setcur(cPos, 12); std::cout << "║         5║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//6
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║6         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ║╔═╝   ║";
-	setcur(cPos, 8); std::cout <<  "║   ║╚═╗   ║";
-	setcur(cPos, 9); std::cout <<  "║   ║╔╗║   ║";
-	setcur(cPos, 10); std::cout << "║   ║╚╝║   ║";
-	setcur(cPos, 11); std::cout << "║   ╚══╝   ║";
-	setcur(cPos, 12); std::cout << "║         6║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//7
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║7         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ╚═╗║   ║";
-	setcur(cPos, 8); std::cout <<  "║     ║║   ║";
-	setcur(cPos, 9); std::cout <<  "║     ║║   ║";
-	setcur(cPos, 10); std::cout << "║     ║║   ║";
-	setcur(cPos, 11); std::cout << "║     ╚╝   ║";
-	setcur(cPos, 12); std::cout << "║         7║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//8
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║8         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ║╔╗║   ║";
-	setcur(cPos, 8); std::cout <<  "║   ║╚╝║   ║";
-	setcur(cPos, 9); std::cout <<  "║   ║╔╗║   ║";
-	setcur(cPos, 10); std::cout << "║   ║╚╝║   ║";
-	setcur(cPos, 11); std::cout << "║   ╚══╝   ║";
-	setcur(cPos, 12); std::cout << "║         8║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//9
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║9         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ║╔╗║   ║";
-	setcur(cPos, 8); std::cout <<  "║   ║╚╝║   ║";
-	setcur(cPos, 9); std::cout <<  "║   ╚═╗║   ║";
-	setcur(cPos, 10); std::cout << "║   ╔═╝║   ║";
-	setcur(cPos, 11); std::cout << "║   ╚══╝   ║";
-	setcur(cPos, 12); std::cout << "║         9║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//10
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║10        ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔╦══╗  ║";
-	setcur(cPos, 7); std::cout <<  "║  ╔╝║╔╗║  ║";
-	setcur(cPos, 8); std::cout <<  "║  ╚╗║║║║  ║";
-	setcur(cPos, 9); std::cout <<  "║   ║║║║║  ║";
-	setcur(cPos, 10); std::cout << "║   ║║╚╝║  ║";
-	setcur(cPos, 11); std::cout << "║   ╚╩══╝  ║";
-	setcur(cPos, 12); std::cout << "║        10║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
+	
 }
 
 void drawCard(char symbol, int cPos)
-{
-	
-	/*
-	╔════╗╔╗╔══╗╔══╗──╔══╗
-	╚═╗╔═╝║║║╔═╝║╔╗║──║╔╗║
-	──║║──║╚╝║──║╚╝╚╗─║║║║
-	──║║──║╔╗║──║╔═╗║─║║║║
-	──║║──║║║╚═╗║╚═╝║╔╝╚╝╚╗
-	──╚╝──╚╝╚══╝╚═══╝╚════╝
-	*/
+{		
 	switch (symbol)
 	{
 	case 'B':
@@ -733,58 +589,6 @@ void drawCard(char symbol, int cPos)
 		break;
 	}
 	return;
-
-
-
-
-
-	//В
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║В         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ║╔╗║   ║";
-	setcur(cPos, 8); std::cout <<  "║   ║╚╝╚╗  ║";
-	setcur(cPos, 9); std::cout <<  "║   ║╔═╗║  ║";
-	setcur(cPos, 10); std::cout << "║   ║╚═╝║  ║";
-	setcur(cPos, 11); std::cout << "║   ╚═══╝  ║";
-	setcur(cPos, 12); std::cout << "║         В║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//Д
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║Д         ║";
-	setcur(cPos, 6); std::cout <<  "║   ╔══╗   ║";
-	setcur(cPos, 7); std::cout <<  "║   ║╔╗║   ║";
-	setcur(cPos, 8); std::cout <<  "║   ║║║║   ║";
-	setcur(cPos, 9); std::cout <<  "║   ║║║║   ║";
-	setcur(cPos, 10); std::cout << "║  ╔╝╚╝╚╗  ║";
-	setcur(cPos, 11); std::cout << "║  ╚════╝  ║";
-	setcur(cPos, 12); std::cout << "║         Д║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//К
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║К         ║";
-	setcur(cPos, 6); std::cout <<  "║  ╔╗╔══╗  ║";
-	setcur(cPos, 7); std::cout <<  "║  ║║║╔═╝  ║";
-	setcur(cPos, 8); std::cout <<  "║  ║╚╝║    ║";
-	setcur(cPos, 9); std::cout <<  "║  ║╔╗║    ║";
-	setcur(cPos, 10); std::cout << "║  ║║║╚═╗  ║";
-	setcur(cPos, 11); std::cout << "║  ╚╝╚══╝  ║";
-	setcur(cPos, 12); std::cout << "║         К║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
-
-	//Т
-	setcur(cPos, 4); std::cout <<  "╔══════════╗";
-	setcur(cPos, 5); std::cout <<  "║Т         ║";
-	setcur(cPos, 6); std::cout <<  "║  ╔════╗  ║";
-	setcur(cPos, 7); std::cout <<  "║  ╚═╗╔═╝  ║";
-	setcur(cPos, 8); std::cout <<  "║    ║║    ║";
-	setcur(cPos, 9); std::cout <<  "║    ║║    ║";
-	setcur(cPos, 10); std::cout << "║    ║║    ║";
-	setcur(cPos, 11); std::cout << "║    ╚╝    ║";
-	setcur(cPos, 12); std::cout << "║         Т║";
-	setcur(cPos, 13); std::cout << "╚══════════╝";
 }
 
 void StartMyGame()//Основаная логика игры
@@ -829,8 +633,6 @@ startGame:
 			cards.erase(cards.begin() + cards.size() - 1); //Рабочее стирание
 
 			drawmethod(cardPos, playcard);
-			
-
 			//==================================================
 			//Красивый и адекватный вывод выпавшей карты:
 			setcur(2, 22);
@@ -867,17 +669,12 @@ startGame:
 			}
 			count += playcard;
 			//==================================================
-			//count += playcard;
-			//drawmethod(cardPos, playcard);
-			//drawCardBackside(playcard);
 			if (count > 21)
 			{
 				setcur(2, 15); std::cout << voidStr;
 				setcur(2, 22); std::cout << "Вы проиграли! Вы набрали: " << count;
 				setcur(2, 15); std::cout << "Хотите сыграть ещё раз?";
 				setcur(2, 23); std::cout << voidStr;
-				//std::cout << "1 - yes" << std::endl;
-				//std::cout << "0 - нет" << std::endl;
 				setcur(2, 19); std::cout << voidStr;
 				setcur(2, 18); std::cout << "Ваш выбор: ";
 				setcur(2, 19); std::cin >> choice;
@@ -896,8 +693,6 @@ startGame:
 				setcur(2, 22); std::cout << "*** Победа! Вы набрали 21 очко!!! ***";
 				setcur(2, 15); std::cout << "Хотите сыграть ещё раз?";
 				setcur(2, 23); std::cout << voidStr;
-				//std::cout << "1 - yes" << std::endl;
-				//std::cout << "0 - нет" << std::endl;
 				setcur(2, 19); std::cout << voidStr;
 				setcur(2, 18); std::cout << "Ваш выбор: ";
 				setcur(2, 19); std::cin >> choice;
@@ -919,10 +714,7 @@ startGame:
 		{
 			setcur(2, 22); std::cout << "Вы закончили игру с колличеством очков: " << count;
 			setcur(2, 23); std::cout << voidStr;
-			setcur(2, 15); std::cout << "Хотите сыграть ещё раз?";
-			//std::cout << "1 - yes" << std::endl;
-			//std::cout << "0 - нет" << std::endl;
-			//std::cout << "Ваш выбор: ";
+			setcur(2, 15); std::cout << "Хотите сыграть ещё раз?";			
 			setcur(2, 19); std::cout << voidStr;
 			setcur(2, 19); std::cin >> choice;
 			if (choice == 1) goto startGame;

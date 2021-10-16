@@ -73,45 +73,15 @@ void MainMenu()
 	char menuPoint1[] = ">  >  21 очко  <  <", menuPoint2[] = ">  >  Выход  <  <", menuPoint3[] = "      21 очко      ", menuPoint4[] = "      Выход      ";
 	char erase[1] = {};
 	
-
 	//Вывод полного меню
-	//SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
 	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
 	setCurPos(100, 24, menuPoint1); //->  |
 	setCurPos(100, 34, menuPoint4);
 
-	//Анимация + управление стрелочками
+	//управление стрелочками
 	do {
 		do
 		{
-			
-			/*
-			if (pos == 1)
-			{
-				setCurPos(100, 24, erase);
-				SetConsoleTextAttribute(hConsole, (WORD)((15 << 4) | 0));
-				setCurPos(100, 24, menuPoint1);
-				Sleep(500);
-				setCurPos(100, 24, erase);
-				SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
-				setCurPos(100, 24, menuPoint1);
-				Sleep(500);
-			}
-			else
-			{
-				setCurPos(100, 34, erase);
-				SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
-				setCurPos(100, 34, menuPoint2);
-				Sleep(500);
-				setCurPos(100, 34, erase);
-				SetConsoleTextAttribute(hConsole, (WORD)((15 << 4) | 0));
-				setCurPos(100, 34, menuPoint2);
-				Sleep(500);
-			}
-			//Sleep(99900);
-
-			*/
-
 		} while (!_kbhit());
 		c = _getch();
 		switch (c) {
@@ -134,11 +104,8 @@ void MainMenu()
 			setCurPos(100, 34, menuPoint2);
 			break;
 
-		case 13: //Enter
-			//char ends[] = { "END!" };
-			//setCurPos(100, 36, ends);
-			if (pos == 1)
-				//cout << "End" << endl;
+		case 13: //Enter			
+			if (pos == 1)				
 				StartMyGame();				
 			else
 			{
@@ -183,11 +150,7 @@ void setCurPos(int x, int y, char str[])
 
 void drawExitMessage()
 {
-	system("cls");
-	/*for (int i = 0; i < 8; i++)
-	{
-		setCurPos(eMessageXSize, eMessageYSize+2, exitMessage1);
-	}*/
+	system("cls");	
 	SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 3));
 	setCurPos(eMessageXSize, eMessageYSize, exitMessage1);
 	setCurPos(eMessageXSize, eMessageYSize + 2, exitMessage2);
