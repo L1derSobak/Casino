@@ -1,5 +1,5 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
+#include <string>
 #include <cstdlib>
 #include <ctime>
 #include <vector>
@@ -8,7 +8,10 @@
 #include <stdio.h>
 #include <Windows.h>
 #include <conio.h>
+#include <cctype>
 #include "Game.h"
+#include "MoneyManager.h"
+//#include "MoneyManager.h"
 
 #pragma execution_character_set( "utf-8" )
 
@@ -20,6 +23,7 @@ void setcol(int backbrnCol, int textCol);
 void setcol(int bothcol);
 void drawCard(int number, int cPos);
 void drawCard(char symbol, int cPos);
+std::string spec_input_str();
 
 enum ConsoleColor {
 	Black = 0,
@@ -39,24 +43,33 @@ enum ConsoleColor {
 	Yellow = 14,
 	White = 15
 };
+enum GameEnd
+{
+	CANCEL_GAME = 0,
+	ENG_WITHOUT_MONEY = 1
+};
 
+//Theme's cards variables
 const int cardBackgroundColor = 8;
 const int tableBackgroundColor = 0;
 const int specialSymbolsColor = 4; //bubi, heart and also symbol of card
 const int DefaultSymbolsColor = 15; //border of card like example
 const int voidSymbolsColor = 0; //just void idk why i added it
-//
+
+//Playable cards variable
 const int cardColorR = 4;
 const int cardColorB = 0;
 const int cardBackground = 8;
-//
-int cardNumber, delayBLandG = 2000, printintMessagesY=22;
+int  delayBLandG = 2000;
+int cardNumber, printintMessagesY=22;
 int cardPos = 0;
 int cardHeight = 2;
+
 //From DrawMethod
 int whatNumberIs, XPos = 2;
 char symbol = 'v';
-//
+
+//Main programm variables
 char nulStr[]={"  "};
 char mainPhrase[] = { "Тянуть карту?" };
 char questionAnsy[] = { "1 - yes" };
@@ -66,6 +79,67 @@ char voidStr[] = { "                                              " };
 char borderSymbol = 'X';
 char poleSymbol = '0';
 bool isTen = false;
+
+std::string spec_input_str()
+{
+	std::string number;
+	while (number.size() == 0)
+	{
+		for (char c = 0; (c = _getch()) != 13;)
+		{
+			if (('0' <= c && c <= '9') || c == '-'
+				|| ('a' <= c && c <= 'z') || c == '/')
+			{
+				number.push_back(c);
+				std::cout << c;
+			}
+			else if (c == 8 && !number.empty())
+			{
+				number.pop_back();
+				std::cout << "\b \b";
+			}
+			else if (c == 27)
+			{
+				number.clear();
+				number.push_back('q');
+				break;
+			}
+		}
+	}
+	std::cout << '\n';
+	return number;
+}
+
+bool is_number(const std::string& s)
+{
+	return !s.empty() && (s.find_first_not_of("0123456789") == s.npos);
+}
+
+int tryToGetNumber()
+{	
+	std::string input;
+	int whatNumber;
+	setcur(2, 19); std::cout << voidStr;
+	setcur(2, 19);
+	input = spec_input_str();
+	if (is_number(input))
+	{
+		whatNumber = std::stoi(input);		
+		if (whatNumber != 0 && whatNumber != 1)
+		{
+			setcur(2, 20); std::cout << "Введите число 1 - да или 0 - нет";
+			tryToGetNumber();
+		}			
+		else
+			return whatNumber;
+	}
+	else
+	{
+		setcur(2, 20); std::cout << "Введите число 1 - да или 0 - нет";
+		tryToGetNumber();
+	}
+	
+}
 
 void setcol(int backbrnCol, int textCol)
 {
@@ -288,6 +362,31 @@ void printLogo()
 
 
 	
+}
+
+void printFinalMessage(GameEnd endType)
+{	
+	for (int i = 15; i < 25; i++)
+	{
+		setcur(2, i); std::cout << voidStr;
+	}
+	setcur(90, 16); std::cout << voidStr;
+	setcur(90, 16); std::cout << "┃ Баланс:             ┃";
+	setcur(92, 20); std::cout << voidStr;
+	drawTable();
+	if (endType == 1)
+	{
+		setcol(0, 4); setcur(2, 16); std::cout << "К сожалению, у вас не хватает средств!";
+		setcol(0, 4); setcur(2, 18); std::cout << "Возвращайтесь когда будете побогаче!";//:D
+	}
+	else
+	{
+		setcol(0, 2); setcur(2, 16); std::cout << "Спасибо вам за игру!";
+		setcol(0, 2); setcur(2, 18); std::cout << "Возвращайтесь снова!!!";
+	}
+	
+	Sleep(10000);
+	exit(0);
 }
 
 void drawTable()
@@ -591,20 +690,50 @@ void drawCard(char symbol, int cPos)
 	return;
 }
 
+void drawBalanceTable(int balance)
+{
+	setcur(90, 14); std::cout << "┎─────────────────────┒";
+	setcur(90,15); std::cout << "┃                     ┃";
+	setcur(90, 16); std::cout << "┃ Баланс:             ┃";
+	setcur(90,16); std::cout << "┃ Баланс: "<<balance; setcur(112,16);std::cout<<"┃";
+	setcur(90,17); std::cout << "┃                     ┃";
+	setcur(90,18); std::cout << "┖─────────────────────┚";
+}
+
 void StartMyGame()//Основаная логика игры
 {
+	MoneyManager moneyManager;
+	//
+	int usersBet;
+	bool isDigit;
+	int counter;
+	int falseCounter;
+	std::string input;
+	//MoneyManager* moneyManager = new MoneyManager();
+	//moneyManager->DrawBalance();
 	SetConsoleOutputCP(65001);
 	SetConsoleCP(65001);
 	printLogo();
 	Sleep(delayBLandG);
 	system("cls");
-		
+			
 startGame:
+	//Initialize variables
 	XPos = 2;
 	symbol = 'v';
-	isTen = false;
-	drawTable();
+	isTen = false;	
+	isDigit = false;
 	cardPos = 0;
+	usersBet = 0;
+	counter = 0;
+	falseCounter = 0;
+	input = "";
+		
+	drawTable();	
+	drawBalanceTable(moneyManager.getBalance());
+	//Ask for bet
+
+	//Another draw
 	setcur(2, 15); std::cout << voidStr << std::endl;
 	setcur(2, 15); std::cout << mainPhrase << std::endl;
 	setcur(2, 16); std::cout << questionAnsy << std::endl;
@@ -619,14 +748,73 @@ startGame:
 					  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
 					  10, 10, 10, 10, 10, 10, 10, 9, 9, 9, 9 };
 	int choice, playcard, count = 0; //Выбор игрока, выпавшая карта, счётчик очков	
+
+AskAgain:
+	//
+	setcur(2, 19); std::cout << voidStr;
+	setcur(2, 20); std::cout << voidStr;
+	//
+	setcur(92, 20); std::cout << voidStr;
+	setcur(92, 20); std::cout << "Ваша ставка: ";
+	setcur(106, 20); 
+	input = spec_input_str();
+	if (is_number(input))
+	{
+		usersBet = std::stoi(input);
+		if (moneyManager.isCanMakeBet(usersBet) == false)
+		{
+			setcur(80, 22); std::cout << voidStr;
+			setcur(80, 23); std::cout << voidStr;
+			setcur(80, 22); std::cout << "У вас недостаточно средств!";
+			setcur(80, 23); std::cout << "Сделайте другую ставку!!!";
+			goto AskAgain;
+		}
+		else
+		{
+			setcur(80, 22); std::cout << voidStr;
+			setcur(80, 23); std::cout << voidStr;
+			moneyManager.makeBet(usersBet);
+			drawBalanceTable(moneyManager.getBalance());
+		}
+	}
+	else
+	{
+		falseCounter++;
+		setcur(80, 22); std::cout << voidStr;
+		setcur(80, 23); std::cout << voidStr;
+		//setcur(92, 22); std::cout << "Введите ставку в виде числа!";
+		if (falseCounter <= 10)
+		{
+			setcur(80, 22); std::cout << "Введите, пожалуйста, число!";
+		}
+		else if (falseCounter <= 15 && falseCounter > 10)
+		{
+			setcur(80, 22); std::cout << "Уважаеый игрок, введите ЧИСЛО!";
+		}
+		else if (falseCounter <= 25 && falseCounter > 15)
+		{
+			setcur(80, 22); std::cout << "Я, конечно, всего лишь код, но моему";
+			setcur(80, 23); std::cout << "удивлению нет предела... Нужно число...";
+		}
+		else
+		{
+			setcur(80, 22); std::cout << "Как же я жалею, что вы сели за мой стол";
+			setcur(80, 23); std::cout << "С меня хватит! Я умываю руки!!!";
+			Sleep(5000);
+			exit(0);
+		}
+		goto AskAgain;
+	}
+
+
 	while (true)
 	{
-		cardPos++;
-		setcur(2, 19); std::cout << voidStr;
-		setcur(2, 19); std::cin >> choice;
+		//Try to get number from user
+		choice = tryToGetNumber();
 		setcur(2, 20); std::cout << voidStr;
 		if (choice == 1)
 		{
+			cardPos++;
 			setcur(2, 22); std::cout << voidStr;
 			std::random_shuffle(cards.begin(), cards.end());
 			playcard = cards[cards.size() - 1]; //Определяем карту
@@ -671,23 +859,36 @@ startGame:
 			//==================================================
 			if (count > 21)
 			{
+				moneyManager.CalculateFinalBalance(false);
+				drawBalanceTable(moneyManager.getBalance());
+				//moneyManager.getBalance();
 				setcur(2, 15); std::cout << voidStr;
 				setcur(2, 22); std::cout << "Вы проиграли! Вы набрали: " << count;
 				setcur(2, 15); std::cout << "Хотите сыграть ещё раз?";
 				setcur(2, 23); std::cout << voidStr;
 				setcur(2, 19); std::cout << voidStr;
 				setcur(2, 18); std::cout << "Ваш выбор: ";
-				setcur(2, 19); std::cin >> choice;
-				if (choice == 1) goto startGame;
-				else if(choice != 1 && choice != 0)
-				{
-					setcur(2, 20); std::cout << "Введите число 1 - да или 0 - нет";
-					setcur(2, 19); std::cout << voidStr;
+				setcur(2, 19); choice = tryToGetNumber();
+				//
+				if (moneyManager.isCanContiuneGame() == true)
+				{				
+					if (choice == 1) goto startGame;
+					else if(choice != 1 && choice != 0)
+					{
+						setcur(2, 20); std::cout << "Введите число 1 - да или 0 - нет";
+						setcur(2, 19); std::cout << voidStr;
+					}
+					else break;
 				}
-				else break;
+				else
+				{
+					printFinalMessage(ENG_WITHOUT_MONEY);
+				}
 			}
 			else if (count == 21)
 			{
+				moneyManager.CalculateFinalBalance(true);
+				drawBalanceTable(moneyManager.getBalance());
 				//std::cout << std::endl;
 				setcur(2, 15); std::cout << voidStr;
 				setcur(2, 22); std::cout << "*** Победа! Вы набрали 21 очко!!! ***";
@@ -695,14 +896,21 @@ startGame:
 				setcur(2, 23); std::cout << voidStr;
 				setcur(2, 19); std::cout << voidStr;
 				setcur(2, 18); std::cout << "Ваш выбор: ";
-				setcur(2, 19); std::cin >> choice;
-				if (choice == 1) goto startGame;
-				else if (choice != 1 && choice != 0)
+				setcur(2, 19); 	choice = tryToGetNumber();
+				if (moneyManager.isCanContiuneGame() == true)
 				{
-					setcur(2, 20); std::cout << "Введите число 1 - да или 0 - нет";
-					setcur(2, 19); std::cout << voidStr;
+					if (choice == 1) goto startGame;
+					else if (choice != 1 && choice != 0)
+					{
+						setcur(2, 20); std::cout << "Введите число 1 - да или 0 - нет";
+						setcur(2, 19); std::cout << voidStr;
+					}
+					else	break;
 				}
-				else	break;
+				else
+				{
+					printFinalMessage(ENG_WITHOUT_MONEY);
+				}
 			}
 			else
 			{
@@ -712,13 +920,20 @@ startGame:
 		}
 		else if (choice == 0)
 		{
+			moneyManager.CalculateFinalBalance(false);
+			drawBalanceTable(moneyManager.getBalance());
 			setcur(2, 22); std::cout << "Вы закончили игру с колличеством очков: " << count;
 			setcur(2, 23); std::cout << voidStr;
 			setcur(2, 15); std::cout << "Хотите сыграть ещё раз?";			
 			setcur(2, 19); std::cout << voidStr;
-			setcur(2, 19); std::cin >> choice;
+			setcur(2, 19); 
+			choice = tryToGetNumber();
 			if (choice == 1) goto startGame;
-			else break;
+			else
+			{
+				printFinalMessage(CANCEL_GAME);
+				break;
+			}
 		}
 		else
 		{
@@ -728,23 +943,6 @@ startGame:
 		
 
 	
-}
-
-void Debugging()
-{
-	std::srand(unsigned(std::time(0))); //Генерация случайного числа с испоьзованием текущего времени
-	std::vector<int> cards = { 11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4,
-					  5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8,
-					  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-					  10, 10, 10, 10, 10, 10, 10, 9, 9, 9, 9 };
-	int playcard, count = 0; //Выбор игрока, выпавшая карта, счётчик очков //choice, 
-	std::random_shuffle(cards.begin(), cards.end());
-
-	outvector(1,cards);
-	playcard = cards[cards.size() - 1];
-	std::cout << playcard << std::endl;
-	cards.erase(cards.begin() + cards.size()-1); //Рабочее стирание
-	outvector(2,cards);
 }
 
 void outvector(int count, std::vector<int> vec)

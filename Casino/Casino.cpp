@@ -15,9 +15,15 @@ int main()
 	SetConsoleTitle(conName.c_str());
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	
+
 	DrawMyIcon();
-	MainMenu();
-	cin.get();
+	if (MainMenu())
+		StartMyGame();
+	else
+	{
+		drawExitMessage();
+		exit(0);
+	}
+	
 	return 0;
 }

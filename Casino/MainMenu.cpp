@@ -10,8 +10,10 @@
 
 using namespace std;
 
+HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
 void DrawMyIcon();
-void MainMenu();
+bool MainMenu();
 void setCurPos(int x, int y, char str[]);
 void drawExitMessage();
 
@@ -25,8 +27,6 @@ char exitMessage5[] = { "  | |_\\ \\| (_) || (_) || (_| || |_) || |_| ||  __/|_|
 char exitMessage6[] = { "\\____/ \\___/  \\___/  \\__,_||_.__/  \\__, | \\___|(_) " };
 char exitMessage7[] = { "                                         __/ |                " };
 char exitMessage8[] = { "                                        |___/                 " };
-
-HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 enum ConsoleColor {
 	Black = 0,
@@ -66,7 +66,7 @@ void DrawMyIcon()
 	return;
 }
 
-void MainMenu()
+bool MainMenu()
 {
 	char c;
 	short pos = 1;
@@ -105,21 +105,26 @@ void MainMenu()
 			break;
 
 		case 13: //Enter			
-			if (pos == 1)				
-				StartMyGame();				
+			if (pos == 1)
+				return true;
+				//StartMyGame();				
 			else
 			{
+				return false;
+				/*
 				drawExitMessage();
 				exit(0);
+				*/
 			}				
-			return;
+			
 			break;
 		}
 	} while (c != 27);
-	drawExitMessage();
-	exit(0);
+	return false;
+	//drawExitMessage();
+	//exit(0);
 
-	return;
+	
 }
 
 void setCurPos(int x, int y, char str[])

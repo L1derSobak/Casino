@@ -1,5 +1,6 @@
 #pragma once
 
 void DrawMyIcon();
-void MainMenu();
+bool MainMenu();
 void setCurPos(int x, int y, char str[]);
+void drawExitMessage();
