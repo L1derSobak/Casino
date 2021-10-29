@@ -905,7 +905,11 @@ AskAgain:
 						setcur(2, 20); std::cout << "Введите число 1 - да или 0 - нет";
 						setcur(2, 19); std::cout << voidStr;
 					}
-					else	break;
+					else
+					{
+						printFinalMessage(CANCEL_GAME);
+						break;
+					}
 				}
 				else
 				{
